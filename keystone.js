@@ -4,7 +4,8 @@ require('dotenv').load();
 
 // Require keystone
 var keystone = require('keystone'),
-	handlebars = require('express-handlebars');
+    handlebars = require('express-handlebars'),
+    i18n = require('i18n'); 
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
@@ -13,7 +14,7 @@ var keystone = require('keystone'),
 keystone.init({
 
 	'name': 'symbolic',
-	'brand': 'symbolic',
+	'brand': 'Symbolic',
 	
 	'sass': 'public',
 	'static': 'public',
@@ -41,6 +42,11 @@ keystone.init({
 
 keystone.import('models');
 
+
+keystone.set('ssl', true);
+keystone.set('ssl key', '/path/to/server.key');
+keystone.set('ssl cert', '/path/to/server.crt');
+
 // Setup common locals for your templates. The following are required for the
 // bundled templates and layouts. Any runtime locals (that should be set uniquely
 // for each request) should be added to ./routes/middleware.js
@@ -52,10 +58,17 @@ keystone.set('locals', {
 	editable: keystone.content.editable
 });
 
+//configure i18n
+i18n.configure({
+    locales:['en', 'zh-CN'],
+    directory: __dirname + '/locales',
+    defaultLocale: 'en'
+});
+
 // Load your project's Routes
 
 keystone.set('routes', require('./routes'));
-
+keystone.set('signin redirect', '/');
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.
 

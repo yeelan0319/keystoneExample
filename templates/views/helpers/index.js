@@ -3,6 +3,7 @@ var _ = require('underscore');
 var hbs = require('handlebars');
 var keystone = require('keystone');
 var cloudinary = require('cloudinary');
+var i18n = require('i18n');
 
 
 // Declare Constants
@@ -147,7 +148,7 @@ module.exports = function() {
 	// block rendering for keystone admin css
 	_helpers.isAdminEditorCSS = function(user, options) {
 		var output = '';
-		if (typeof(user) !== 'undefined' && user.isAdmin) {
+		if (typeof(user) !== 'undefined' && user.canAccessKeystone) {
 			output = cssLinkTemplate({
 				href: "/keystone/styles/content/editor.min.css"
 			});
@@ -158,7 +159,7 @@ module.exports = function() {
 	// block rendering for keystone admin js
 	_helpers.isAdminEditorJS = function(user, options) {
 		var output = '';
-		if (typeof(user) !== 'undefined' && user.isAdmin) {
+		if (typeof(user) !== 'undefined' && user.canAccessKeystone) {
 			output = scriptTemplate({
 				src: '/keystone/js/content/editor.js'
 			});
@@ -333,6 +334,14 @@ module.exports = function() {
 		}
 		return new hbs.SafeString(output);
 	};
+        
+        // register hbs helpers in res.locals' context which provides this.locale
+        _helpers.__ = function () {
+            return i18n.__.apply(this, arguments);
+        };
+        _helpers.__n = function () {
+            return i18n.__n.apply(this, arguments);
+        };
 	
 	return _helpers;
 };

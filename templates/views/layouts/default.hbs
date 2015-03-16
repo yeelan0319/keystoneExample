@@ -40,12 +40,26 @@
 									</li>
 								{{/each}}
 							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								{{#if user}}
-								<li><a href="/keystone/signout">Sign Out</a></li>
-								{{else}}
-								<li><a href="/keystone/signin">Sign In</a></li>
-								{{/if}}
+                                                        <ul class="nav navbar-nav navbar-right dropdown">
+                                                            {{#if user}}
+                                                            <li class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                                              <a>{{user.name.first}}
+                                                                <span class="caret"></span></a>
+                                                            </li>
+                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profile</a></li>
+                                                                {{#if user.canAccessDevice}}
+                                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Device</a></li>
+                                                                {{/if}}
+                                                                {{#if user.canAccessSymbolic}}
+                                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Employee Control Panel</a></li>
+                                                                {{/if}}
+                                                                <li role="presentation" class="divider"></li>
+                                                                <li role="presentation"><a href="/keystone/signout">Sign Out</a></li>
+                                                            </ul>
+                                                            {{else}}
+                                                            <li><a href="/keystone/signin">Sign In</a></li>
+                                                            {{/if}}
 							</ul>
 						</div>
 					</div>

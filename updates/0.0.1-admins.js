@@ -9,7 +9,7 @@
 
 exports.create = {
 	User: [
-		{ 'name.first': 'Admin', 'name.last': 'User', email: 'ymao@symbolicio.com', password: 'admin', isAdmin: true }
+		{ 'name.first': 'Admin', 'name.last': 'User', email: 'ymao@symbolicio.com', password: 'admin', typeCode: 4 }
 	]
 };
 
@@ -29,7 +29,7 @@ function createAdmin(admin, done) {
 	
 	var newAdmin = new User.model(admin);
 	
-	newAdmin.isAdmin = true;
+	newAdmin.canAccessKeystone = true;
 	newAdmin.save(function(err) {
 		if (err) {
 			console.error("Error adding admin " + admin.email + " to the database:");
