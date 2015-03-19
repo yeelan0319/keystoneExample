@@ -30,3 +30,7 @@ node_modules
 # Ignore .DS_Store files on OS X
 .DS_Store
 /nbproject/private/
+server.crt
+server.csr
+server.key
+server.key.orig

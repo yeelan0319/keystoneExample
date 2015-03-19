@@ -9,7 +9,7 @@
 
 exports.create = {
 	User: [
-		{ 'name.first': 'Admin', 'name.last': 'User', email: 'ymao@symbolicio.com', password: 'admin', typeCode: 4 }
+		{ 'name.first': 'Admin', 'name.last': 'User', email: 'ymao@symbolicio.com', password: 'admin', type: "admin" }
 	]
 };
 

@@ -71,3 +71,26 @@ exports.requireUser = function(req, res, next) {
 	}
 	
 };
+
+exports.setLocale = function(req, res, next){
+    var locale;
+    if(req.user){
+        locale = req.user.locale;
+    }
+    else if(req.signedCookies['locale']){
+        locale = req.signedCookies['locale'];
+    }
+    else if(req.acceptsLanguages()){
+        locale = req.acceptsLanguages();
+    }
+    else{
+        locale = 'en';
+    }
+    // set the cookie information to perserve locale information
+    if(req.signedCookies['locale'] !== locale){
+        res.cookie('locale', locale, { signed: true, httpOnly: true });
+    }
+    // attach locale information to req for i18n-node module to use
+    req.setLocale(locale);
+    next();
+};

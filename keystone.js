@@ -31,21 +31,33 @@ keystone.init({
 	}).engine,
 	
 	'auto update': true,
+        
+        'mongo': "192.168.184.155:27017",
 	'session': true,
+        'session store': 'connect-redis',
+        'session store options': {
+            "host": "192.168.184.155",
+            "port": "6379",
+            "ttl": 60 * 60 * 24 * 30,
+        },
 	'auth': true,
 	'user model': 'User',
-	'cookie secret': '~V}]S+..qU[k(dZy&U&5|*7[3BxTAec4V3`|3r;W9;9C6<:^.WkSr<:}92~=VpEf'
-
+	'cookie secret': '~V}]S+..qU[k(dZy&U&5|*7[3BxTAec4V3`|3r;W9;9C6<:^.WkSr<:}92~=VpEf',
+        'signin redirect': function(user, req, res){
+            res.cookie('locale', user.locale, { signed: true, httpOnly: true });
+            res.redirect('/');
+        },
+        
+        'ssl': true,
+        'ssl key': 'server.key',
+        'ssl cert': 'server.crt',
+        
+        
 });
 
 // Load your project's Models
 
 keystone.import('models');
-
-
-keystone.set('ssl', true);
-keystone.set('ssl key', '/path/to/server.key');
-keystone.set('ssl cert', '/path/to/server.crt');
 
 // Setup common locals for your templates. The following are required for the
 // bundled templates and layouts. Any runtime locals (that should be set uniquely
@@ -68,7 +80,6 @@ i18n.configure({
 // Load your project's Routes
 
 keystone.set('routes', require('./routes'));
-keystone.set('signin redirect', '/');
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.
 
