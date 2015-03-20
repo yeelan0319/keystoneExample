@@ -4830,7 +4830,10 @@ html, body {
 
 #locale {
   background-color: #000;
-  height: 20px; }
+  height: 20px;
+  color: #ccc;
+  font-size: 11px;
+  line-height: 20px; }
 
 #header {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
