@@ -216,8 +216,8 @@ module.exports = function() {
 	// the routes by keynames to reduce the maintenance of changing urls
 	
 	// Direct url link to a specific post
-	_helpers.postUrl = function(postSlug, options) {
-		return ('/blog/post/' + postSlug);
+	_helpers.postUrl = function(categoryName, postSlug, options) {
+		return ('/' + categoryName + '/' + postSlug);
 	};
 	
 	// might be a ghost helper

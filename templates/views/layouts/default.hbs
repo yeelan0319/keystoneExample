@@ -21,99 +21,107 @@
 		
 	</head>
 	<body>
-		<div id="header">
-			<div class="container">
-				<div role="navigation" class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-							</button>
-							<a href="/" class="navbar-brand">symbolic</a>
-						</div>
-						<div class="collapse navbar-collapse">
-							<ul class="nav navbar-nav navbar-left">
-									{{# each navLinks}}
-									<li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
-										<a href="{{ href }}">{{ label }}</a>
-									</li>
-								{{/each}}
-							</ul>
-                                                        <ul class="nav navbar-nav navbar-right dropdown">
-                                                            {{#if user}}
-                                                            <li class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                                              <a>{{user.name.first}}
-                                                                <span class="caret"></span></a>
-                                                            </li>
-                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profile</a></li>
-                                                                {{#if user.canAccessDevice}}
-                                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Device</a></li>
-                                                                {{/if}}
-                                                                {{#if user.canAccessSymbolic}}
-                                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Employee Control Panel</a></li>
-                                                                {{/if}}
-                                                                <li role="presentation" class="divider"></li>
-                                                                <li role="presentation"><a href="/keystone/signout">Sign Out</a></li>
-                                                            </ul>
-                                                            {{else}}
-                                                            <li><a href="/keystone/signin">Sign In</a></li>
-                                                            {{/if}}
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="body">
-			<!--
-				Flash messages allow you to display once-off status messages to users, e.g. form
-				validation errors, success messages, etc
-			-->
-			{{#if messages}}
-			<div id="flash-messages" class="container">
-				{{#if messages.info}}
-				<div class="alert alert-info">
-						{{{flashMessages messages.info}}}
-				</div>
-				{{/if}}
-				{{#if messages.success}}
-				<div class="alert alert-success">
-						{{{flashMessages messages.success}}}
-				</div>
-				{{/if}}
-				{{#if messages.warning}}
-				<div class="alert alert-warning">
-						{{{flashMessages messages.warning}}}
-				</div>
-				{{/if}}
-				{{#if messages.error}}
-				<div class="alert alert-danger">
-						{{{flashMessages messages.error}}}
-				</div>
-				{{/if}}
-			</div>
-			{{/if}}
-			<!-- The content block should contain the body of your template's content-->
-			{{{body}}}
-		</div>
-		<div class="container">
-			<div id="footer">
-				<p>Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
-			</div>
-		</div>
-		{{!--
-			//- jQuery 1.11.1 is included by default, and required by both Bootstrap
-			//- and the KeystoneJS Content Editor. If you are not targeting IE8,
-			//- you can upgrade to 2.1.1 (also bundled) for better performance.
-		--}}
-		<script src="/js/lib/jquery/jquery-1.11.1.min.js"></script>
-		{{!--
-			//- Customise which Bootstrap javascript files are served by including
-			//- them specifically here, instead of bootstrap-3.2.0.min.js
-		--}}
-		<script src="/js/lib/bootstrap/bootstrap-3.2.0.min.js"></script>
-		{{{isAdminEditorJS user}}}
+            <div id="page-wrapper">
+                <div id="locale">
+
+                </div>
+                <div id="header">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                                </button>
+                                <a href="/" class="navbar-brand">
+                                    <img src='/images/logo.png'>
+                                </a>
+                            </div>
+                            <div class="collapse navbar-collapse">
+                                    <ul class="nav navbar-nav navbar-left">
+                                                    {{# each navLinks}}
+                                                    <li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
+                                                            <a href="{{ href }}">{{ label }}</a>
+                                                    </li>
+                                            {{/each}}
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right dropdown">
+                                        {{#if user}}
+                                        <li class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                          <a>{{user.name.first}}
+                                            <span class="caret"></span></a>
+                                        </li>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profile</a></li>
+                                            {{#if user.canAccessDevice}}
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Device</a></li>
+                                            {{/if}}
+                                            {{#if user.canAccessSymbolic}}
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Employee Control Panel</a></li>
+                                            {{/if}}
+                                            {{#if user.canAccessKeystone}}
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/keystone">Corporate CMS System</a></li>
+                                            {{/if}}
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation"><a href="/keystone/signout">Sign Out</a></li>
+                                        </ul>
+                                        {{else}}
+                                        <li><a href="/keystone/signin">Sign In</a></li>
+                                        {{/if}}
+                                    </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div id="body">
+                        <!--
+                                Flash messages allow you to display once-off status messages to users, e.g. form
+                                validation errors, success messages, etc
+                        -->
+                        {{#if messages}}
+                        <div id="flash-messages" class="container">
+                                {{#if messages.info}}
+                                <div class="alert alert-info">
+                                                {{{flashMessages messages.info}}}
+                                </div>
+                                {{/if}}
+                                {{#if messages.success}}
+                                <div class="alert alert-success">
+                                                {{{flashMessages messages.success}}}
+                                </div>
+                                {{/if}}
+                                {{#if messages.warning}}
+                                <div class="alert alert-warning">
+                                                {{{flashMessages messages.warning}}}
+                                </div>
+                                {{/if}}
+                                {{#if messages.error}}
+                                <div class="alert alert-danger">
+                                                {{{flashMessages messages.error}}}
+                                </div>
+                                {{/if}}
+                        </div>
+                        {{/if}}
+                        <!-- The content block should contain the body of your template's content-->
+                        {{{body}}}
+                </div>
+            </div>
+            <div id="footer">
+                <div class="container">
+                    <p>Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
+                </div>
+            </div>
+            {{!--
+                    //- jQuery 1.11.1 is included by default, and required by both Bootstrap
+                    //- and the KeystoneJS Content Editor. If you are not targeting IE8,
+                    //- you can upgrade to 2.1.1 (also bundled) for better performance.
+            --}}
+            <script src="/js/lib/jquery/jquery-1.11.1.min.js"></script>
+            {{!--
+                    //- Customise which Bootstrap javascript files are served by including
+                    //- them specifically here, instead of bootstrap-3.2.0.min.js
+            --}}
+            <script src="/js/lib/bootstrap/bootstrap-3.2.0.min.js"></script>
+            {{{isAdminEditorJS user}}}
 	</body>
 </html>
