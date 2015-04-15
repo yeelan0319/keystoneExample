@@ -10,7 +10,7 @@ var keystone = require('keystone'),
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
-
+console.log(process.env.DB_PORT_6379_TCP_ADDR, process.env.DB_PORT_6379_TCP_PORT)
 keystone.init({
 
 	'name': 'symbolic',
@@ -32,12 +32,12 @@ keystone.init({
 	
 	'auto update': true,
         
-    'mongo': process.env.MONGO_PORT,
+    'mongo': process.env.MONGO_PORT_27017_TCP_ADDR + ":" + process.env.MONGO_PORT_27017_TCP_PORT,
 	'session': true,
         'session store': 'connect-redis',
         'session store options': {
-            "host": process.env.DB_PORT_6379_TCP_ADDR,
-            "port": process.env.DB_PORT_6379_TCP_PORT,
+            "host": process.env.REDIS_PORT_6379_TCP_ADDR,
+            "port": process.env.REDIS_PORT_6379_TCP_PORT,
             "ttl": 60 * 60 * 24 * 30,
         },
 	'auth': true,
