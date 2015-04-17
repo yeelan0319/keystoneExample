@@ -1,0 +1,21 @@
+redis:
+  image: redis:2.8.19
+  command: redis-server --appendonly yes
+  volumes:
+    - /data/symbolic/:/data
+mongo:
+  image: mongo:3.0.1
+  command: mongod --config /etc/mongod.conf
+  volumes:
+    - /data/symbolic/:/data/db/
+keystone:
+  build: . 
+  command: node keystone
+  restart: always
+  ports:
+    - "3000:3000"
+  volumes:
+    - ./:/usr/src/keystonejs
+  links:
+    - redis
+    - mongo

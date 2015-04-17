@@ -32,12 +32,12 @@ keystone.init({
 	
 	'auto update': true,
         
-        'mongo': "192.168.184.155:27017",
+    'mongo': process.env.MONGO_PORT,
 	'session': true,
         'session store': 'connect-redis',
         'session store options': {
-            "host": "192.168.184.155",
-            "port": "6379",
+            "host": process.env.DB_PORT_6379_TCP_ADDR,
+            "port": process.env.DB_PORT_6379_TCP_PORT,
             "ttl": 60 * 60 * 24 * 30,
         },
 	'auth': true,
