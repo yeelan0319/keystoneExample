@@ -49,8 +49,8 @@ keystone.init({
         },
         
         'ssl': true,
-        'ssl key': 'server.key',
-        'ssl cert': 'server.crt',
+        'ssl key': process.env.SSL_KEY
+        'ssl cert': process.env.SSL_CERT,
         
         
 });

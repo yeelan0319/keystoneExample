@@ -1,0 +1,15 @@
+FROM node:0.10-onbuild
+MAINTAINER YIRAN Mao <yiranmao@gmail.com>
+
+# SET UP THE WORKING DIR
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# COPY THE SOURCE CODE AND INSTALL MODULES
+COPY . /usr/src/app
+RUN npm install
+
+# EXPOSE
+# If you change the ones in docker-compose.yml, you need to change it correspondingly here
+EXPOSE 3000
+EXPOSE 3001

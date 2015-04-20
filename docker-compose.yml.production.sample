@@ -1,0 +1,26 @@
+redis:
+  image: redis:2.8.19
+  command: redis-server --appendonly yes
+  # Change /data/symbolic to local folder where you save redis data
+  # /data is mounting point required by redis image
+  volumes:
+    - /data/symbolic/:/data/
+mongo:
+  image: mongo:3.0.1
+  command: mongod --smallfiles
+  # Change /data/symbolic to local folder where you save mongo data
+  # /data/db is mounting point required by mongo image
+  volumes:
+    - /data/symbolic/:/data/db/
+keystone:
+  build: . 
+  command: node keystone
+  restart: always
+  # 3000/3001 stands for HTTP/HTTPS request inside docker container. 
+  # If you want to change it, please change EXPOSE in Dockerfile as well
+  ports:
+    - "80:3000"
+    - "443:3001"
+  links:
+    - redis
+    - mongo
